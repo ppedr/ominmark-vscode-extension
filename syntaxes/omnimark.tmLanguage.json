@@ -1,0 +1,179 @@
+{
+  "name": "OmniMark",
+  "scopeName": "source.omnimark",
+  "fileTypes": ["xom", "xin", "xmd", "xar"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#shebang" },
+    { "include": "#strings_double" },
+    { "include": "#strings_single" },
+    { "include": "#char_class_brackets" },
+    { "include": "#pattern_variable" },
+    { "include": "#built_in_streams" },
+    { "include": "#rule_keywords" },
+    { "include": "#control_keywords" },
+    { "include": "#type_keywords" },
+    { "include": "#character_classes" },
+    { "include": "#operators_word" },
+    { "include": "#operators_symbol" },
+    { "include": "#grouping" },
+    { "include": "#numbers" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.semicolon.omnimark",
+          "match": ";.*$"
+        }
+      ]
+    },
+    "shebang": {
+      "patterns": [
+        {
+          "name": "comment.line.shebang.omnimark",
+          "match": "^#!.*$"
+        }
+      ]
+    },
+    "strings_double": {
+      "name": "string.quoted.double.omnimark",
+      "begin": "\"",
+      "end": "\"|(?=$)",
+      "patterns": [
+        { "include": "#string_escapes" },
+        {
+          "name": "constant.character.escape.quote.omnimark",
+          "match": "%\""
+        }
+      ]
+    },
+    "strings_single": {
+      "name": "string.quoted.single.omnimark",
+      "begin": "'",
+      "end": "'|(?=$)",
+      "patterns": [
+        { "include": "#string_escapes" },
+        {
+          "name": "constant.character.escape.quote.omnimark",
+          "match": "%'"
+        }
+      ]
+    },
+    "string_escapes": {
+      "patterns": [
+        {
+          "name": "variable.other.format-item.omnimark",
+          "match": "%[gGxX]\\([^)\\n]*\\)|%[dD]\\([^)\\n]*\\)|%[lL][gG]\\([^)\\n]*\\)|%[uU][gG]\\([^)\\n]*\\)|%[vV]|%[qQ]"
+        },
+        {
+          "name": "keyword.other.parse-continuation.omnimark",
+          "match": "(?i)%c"
+        },
+        {
+          "name": "constant.character.escape.omnimark",
+          "match": "%[nNtTrRbB]|%[0-9]+#|%[xX][0-9a-fA-F]+#|%%|%_"
+        }
+      ]
+    },
+    "char_class_brackets": {
+      "comment": "OmniMark character class [...] used in patterns — e.g. [letter or digit], [any except '%\"']",
+      "name": "meta.char-class.omnimark",
+      "begin": "\\[",
+      "end": "\\]|(?=$)",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.char-class.begin.omnimark" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.char-class.end.omnimark" }
+      },
+      "patterns": [
+        { "include": "#strings_double" },
+        { "include": "#strings_single" },
+        { "include": "#character_classes" },
+        { "include": "#operators_word" },
+        { "include": "#built_in_streams" }
+      ]
+    },
+    "pattern_variable": {
+      "patterns": [
+        {
+          "name": "variable.other.pattern.omnimark",
+          "match": "=>\\s*[a-zA-Z][a-zA-Z0-9_-]*"
+        }
+      ]
+    },
+    "built_in_streams": {
+      "patterns": [
+        {
+          "name": "support.variable.omnimark",
+          "match": "(?i)(#process-input|#process-output|#main-input|#main-output|#error|#current-input|#current-output|#markup-parser|#program-error|#external-exception|#command-line-names|#args|#group|#implied|#item|#first|#last|#charset|#platform-info|#language-version|#line-number|#file-name|#error-code|#message|#recovery-info|#additional-info|#appinfo|#sgml|#document|#dtd|#empty|#none|#output|#console|#library|#libpath|#libvalue|#suppress|#syntax|#capacity|#class|#doctype)"
+        }
+      ]
+    },
+    "rule_keywords": {
+      "patterns": [
+        {
+          "name": "entity.name.function.rule.omnimark",
+          "match": "(?i)\\b(process-start|process-end|process|find-start|find-end|find|data-content|document-start|document-end|dtd-start|dtd-end|markup-comment|markup-error|processing-instruction|prolog-end|prolog-in-error|epilog-start|sgml-declaration-end|external-text-entity|external-data-entity|invalid-data|marked-section|include-start|include-end|content-start|content-end|translate|element)\\b"
+        }
+      ]
+    },
+    "control_keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.omnimark",
+          "match": "(?i)\\b(do|done|repeat|again|else|when|unless|exit|return|halt-everything|halt|throw|catch|always|case|match|select|scan|over|submit|suppress|output-to|output|put|open|close|reopen|set|increment|decrement|remove|clear|reset|copy-clear|copy|save-clear|save|log|flush|skip|discard|join|next|activate|deactivate|not-reached|succeed|assert|rethrow|system-call|test-system|using|define|declare|include|macro-end|macro|global|local|group)\\b"
+        }
+      ]
+    },
+    "type_keywords": {
+      "patterns": [
+        {
+          "name": "storage.type.omnimark",
+          "match": "(?i)\\b(stream|counter|switch|integer|bcd|opaque|token|referent|referents|value|modifiable|read-only|readable|writable|variable|size|initial-size|initial|function|new|before|after|item|key|keyed|number|as|to|by|into|at|with|from|for|in|of|and|or|true|false|buffer|file|unbuffered|buffered|binary-mode|binary-input|binary-output|text-mode)\\b"
+        }
+      ]
+    },
+    "character_classes": {
+      "patterns": [
+        {
+          "name": "support.class.character.omnimark",
+          "match": "(?i)\\b(any-text|any|white-space|word-start|word-end|line-start|line-end|non-cdata|non-sdata|letter|blank|space|digit|pcdata|rcdata|cdata|sdata|null|text|uc|lc)\\b"
+        }
+      ]
+    },
+    "operators_word": {
+      "patterns": [
+        {
+          "name": "keyword.operator.word.omnimark",
+          "match": "(?i)\\b(is|isnt|has|hasnt|not|matches|lookahead|format|base|modulo|abs|ceiling|floor|round|truncate|sqrt|ln|log10|shift|complement|union|intersection|difference|mask|occurrence|length|number-of|name|date|exists|status|active|closed|specified|attached|unattached|created|ancestor|parent|children|subelement|elements|attributes|entities|notation|context-translate|cross-translate|up-translate|down-translate|except|unanchored|usemap|or)\\b"
+        }
+      ]
+    },
+    "operators_symbol": {
+      "patterns": [
+        {
+          "name": "keyword.operator.symbol.omnimark",
+          "match": "\\|\\||=>|!=|>=|<=|=|>|<|\\+|-|\\*|/|&|\\||~|\\^|@|\\$|\\?"
+        }
+      ]
+    },
+    "grouping": {
+      "patterns": [
+        {
+          "name": "punctuation.brackets.omnimark",
+          "match": "[(){}]"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.integer.omnimark",
+          "match": "\\b[0-9][0-9]*\\b"
+        }
+      ]
+    }
+  }
+}

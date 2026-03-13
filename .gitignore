@@ -1,0 +1,17 @@
+# Extension package
+omnimark-language-*.vsix
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.swp
+*.bak
+*.tmp
+
+# OS-specific files
+.DS_Store
+Thumbs.db

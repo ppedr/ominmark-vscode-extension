@@ -1,0 +1,270 @@
+{
+  "Process Rule": {
+    "prefix": "process",
+    "body": ["process", "\t$0"],
+    "description": "Main process rule"
+  },
+  "Process Start Rule": {
+    "prefix": "process-start",
+    "body": ["process-start", "\t$0"],
+    "description": "Initialization rule"
+  },
+  "Process End Rule": {
+    "prefix": "process-end",
+    "body": ["process-end", "\t$0"],
+    "description": "Termination rule"
+  },
+  "Find Rule": {
+    "prefix": "find",
+    "body": ["find ${1:pattern}", "\t${2:output \"%c\"}"],
+    "description": "Pattern find rule"
+  },
+  "Element Rule": {
+    "prefix": "element",
+    "body": ["element ${1:name}", "\toutput \"${2:<%1>%c</%1>}\""],
+    "description": "XML/SGML element rule"
+  },
+  "Element Rule with attributes": {
+    "prefix": "elementattr",
+    "body": [
+      "element ${1:name}",
+      "\toutput \"<${1}\"",
+      "\trepeat over attrs",
+      "\t\toutput \" \" || name of attrs || \"='\" || attrs || \"'\"",
+      "\tagain",
+      "\toutput \">%c</${1}>\""
+    ],
+    "description": "Element rule that passes through all attributes"
+  },
+  "Do XML Parse": {
+    "prefix": "xmlparse",
+    "body": [
+      "do xml-parse document",
+      "\tscan file ${1:\"input.xml\"}",
+      "\toutput \"%c\"",
+      "done"
+    ],
+    "description": "XML parse block"
+  },
+  "Do SGML Parse": {
+    "prefix": "sgmlparse",
+    "body": [
+      "do sgml-parse document",
+      "\tscan file ${1:\"sgmldec.sgm\"} || file ${2:\"my.dtd\"} || file ${3:\"input.sgm\"}",
+      "\toutput \"%c\"",
+      "done"
+    ],
+    "description": "SGML parse block"
+  },
+  "Do When": {
+    "prefix": "dowhen",
+    "body": ["do when ${1:condition}", "\t$2", "else", "\t$3", "done"],
+    "description": "Conditional do-when block"
+  },
+  "Do When Else When": {
+    "prefix": "dowhenmulti",
+    "body": [
+      "do when ${1:condition1}",
+      "\t$2",
+      "else when ${3:condition2}",
+      "\t$4",
+      "else",
+      "\t$5",
+      "done"
+    ],
+    "description": "Multi-branch conditional"
+  },
+  "Do Select": {
+    "prefix": "doselect",
+    "body": [
+      "do select ${1:variable}",
+      "\tcase ${2:1} to ${3:5}",
+      "\t\t$4",
+      "\tcase ${5:6} to ${6:10}",
+      "\t\t$7",
+      "\telse",
+      "\t\t$8",
+      "done"
+    ],
+    "description": "Select/case block"
+  },
+  "Do Scan": {
+    "prefix": "doscan",
+    "body": [
+      "do scan ${1:variable}",
+      "\tmatch ${2:\"pattern\"}",
+      "\t\t$3",
+      "\telse",
+      "\t\t$4",
+      "done"
+    ],
+    "description": "Scan block for pattern matching on a value"
+  },
+  "Repeat": {
+    "prefix": "repeat",
+    "body": ["repeat", "\t$1", "\texit when ${2:condition}", "again"],
+    "description": "Basic repeat loop"
+  },
+  "Repeat Over Shelf": {
+    "prefix": "repeatover",
+    "body": [
+      "repeat over ${1:shelf}",
+      "\toutput ${1} || \"%n\"",
+      "again"
+    ],
+    "description": "Iterate over a shelf"
+  },
+  "Global Stream": {
+    "prefix": "gstream",
+    "body": ["global stream ${1:name}${2: initial {\"${3:value}\"}}"],
+    "description": "Global stream variable declaration"
+  },
+  "Global Counter": {
+    "prefix": "gcounter",
+    "body": ["global counter ${1:name}${2: initial {${3:0}}}"],
+    "description": "Global counter variable declaration"
+  },
+  "Global Switch": {
+    "prefix": "gswitch",
+    "body": ["global switch ${1:name}${2: initial {${3:false}}}"],
+    "description": "Global switch variable declaration"
+  },
+  "Global Shelf Variable": {
+    "prefix": "gshelf",
+    "body": ["global ${1:stream} ${2:name} variable"],
+    "description": "Global variable-size shelf"
+  },
+  "Local Stream": {
+    "prefix": "lstream",
+    "body": ["local stream ${1:name}"],
+    "description": "Local stream variable"
+  },
+  "Local Counter": {
+    "prefix": "lcounter",
+    "body": ["local counter ${1:name}"],
+    "description": "Local counter variable"
+  },
+  "Open Buffer": {
+    "prefix": "openbuffer",
+    "body": [
+      "open ${1:buf} as buffer",
+      "put ${1} ${2:\"content\"}",
+      "close ${1}",
+      "output ${1}"
+    ],
+    "description": "Open a stream as buffer, write, close, output"
+  },
+  "Using Output As": {
+    "prefix": "usingoutput",
+    "body": [
+      "using output as ${1:stream}",
+      "do",
+      "\t$2",
+      "done"
+    ],
+    "description": "Redirect output to a stream temporarily"
+  },
+  "Define Function": {
+    "prefix": "deffunc",
+    "body": [
+      "define ${1:stream} function ${2:my-function}",
+      "\t(value ${3:stream} ${4:arg1})",
+      "as",
+      "\treturn $5"
+    ],
+    "description": "Define a function with return value"
+  },
+  "Define Void Function": {
+    "prefix": "defvoid",
+    "body": [
+      "define function ${1:my-function}",
+      "\t(value ${2:stream} ${3:arg1})",
+      "as",
+      "\t$4"
+    ],
+    "description": "Define a void function (output only, no return)"
+  },
+  "Declare Catch": {
+    "prefix": "declarecatch",
+    "body": ["declare catch ${1:my-error}"],
+    "description": "Declare a named exception"
+  },
+  "Catch Program Error": {
+    "prefix": "catcherror",
+    "body": [
+      "catch #program-error code ${1:c} message ${2:m} location ${3:l}",
+      "\toutput to #error \"Error \" || \"d\" format ${1} || \": \" || ${2} || \"%n\""
+    ],
+    "description": "Catch built-in program errors"
+  },
+  "Catch External Exception": {
+    "prefix": "catchexternal",
+    "body": [
+      "catch #external-exception identity ${1:i} message ${2:m} location ${3:l}",
+      "\toutput to #error \"External error: \" || ${2} || \"%n\""
+    ],
+    "description": "Catch file/network errors"
+  },
+  "Rule Group": {
+    "prefix": "group",
+    "body": [
+      "group ${1:my-group}",
+      "",
+      "find ${2:pattern}",
+      "\t$3"
+    ],
+    "description": "Rule group declaration"
+  },
+  "Using Group": {
+    "prefix": "usinggroup",
+    "body": [
+      "using group ${1:my-group}",
+      "do",
+      "\tsubmit ${2:input}",
+      "done"
+    ],
+    "description": "Activate a rule group"
+  },
+  "Macro": {
+    "prefix": "macro",
+    "body": [
+      "macro ${1:my-macro} is",
+      "\t${2:\"value\"}",
+      "macro-end"
+    ],
+    "description": "Define a macro"
+  },
+  "Include": {
+    "prefix": "include",
+    "body": ["include \"${1:file.xin}\""],
+    "description": "Include an external file"
+  },
+  "Full XML Transform Skeleton": {
+    "prefix": "xmlskeleton",
+    "body": [
+      "process",
+      "\tdo xml-parse document",
+      "\t\tscan file #main-input",
+      "\t\toutput \"%c\"",
+      "\tdone",
+      "",
+      "element ${1:root}",
+      "\toutput \"<${1}>%c</${1}>\"",
+      "",
+      "element *",
+      "\toutput \"%c\"",
+      "",
+      "markup-comment",
+      "\tsuppress",
+      "",
+      "processing-instruction",
+      "\tsuppress"
+    ],
+    "description": "Full XML transformation program skeleton"
+  },
+  "Output Format Counter": {
+    "prefix": "outputd",
+    "body": ["output \"d\" format ${1:counter}"],
+    "description": "Output a counter as a formatted decimal string"
+  }
+}

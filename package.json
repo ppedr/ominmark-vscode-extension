@@ -1,0 +1,45 @@
+{
+  "name": "omnimark-language",
+  "displayName": "OmniMark Language Support",
+  "description": "Syntax highlighting, snippets, and hover documentation for OmniMark (.xom, .xin, .xmd)",
+  "version": "1.1.0",
+  "publisher": "ppfjuni",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": ["omnimark", "xom", "xin", "xmd", "sgml", "xml", "stilo"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/vscode-omnimark"
+  },
+  "activationEvents": [
+    "onLanguage:omnimark"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "omnimark",
+        "aliases": ["OmniMark", "omnimark"],
+        "extensions": [".xom", ".xin", ".xmd", ".xar"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "omnimark",
+        "scopeName": "source.omnimark",
+        "path": "./syntaxes/omnimark.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "omnimark",
+        "path": "./snippets/omnimark.json"
+      }
+    ]
+  }
+}
