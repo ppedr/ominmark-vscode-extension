@@ -11,9 +11,6 @@ test/**
 # Node modules
 node_modules/**
 
-# Build artifacts (only dist/ is needed)
-out/**
-
 # Dev/config files
 .vscode/**
 .github/**
