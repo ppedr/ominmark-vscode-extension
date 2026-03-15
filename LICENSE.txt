@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 OmniMark Language Support Contributors
+Copyright (c) 2026 ppfjuni
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Acknowledgments:
+
+The OmniMark keyword list used in the syntax grammar was informed by the
+jEdit OmniMark syntax mode contributed by Lionel Fiol (distributed under
+GPL v2). The keyword names themselves are defined by the OmniMark language
+specification and are not copyrightable. No code, structure, or creative
+expression from the jEdit mode was carried over into this extension.
