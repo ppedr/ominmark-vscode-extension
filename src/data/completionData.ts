@@ -2,24 +2,14 @@
 // Each entry: { label, kind, detail, documentation, insertText, insertTextFormat }
 // insertTextFormat: 1 = plain text, 2 = snippet (uses $1, $2, ${1:placeholder})
 
-const vscode = require("vscode");
+import * as vscode from "vscode";
+import { item } from "../utils/completionItem";
+
 const K = vscode.CompletionItemKind;
-
-// ── Helper ────────────────────────────────────────────────────────────────────
-
-function item(label, kind, detail, documentation, insertText, isSnippet = false) {
-  const c = new vscode.CompletionItem(label, kind);
-  c.detail = detail;
-  c.documentation = new vscode.MarkdownString(documentation);
-  c.insertText = isSnippet
-    ? new vscode.SnippetString(insertText)
-    : (insertText || label);
-  return c;
-}
 
 // ── Keywords ──────────────────────────────────────────────────────────────────
 
-const KEYWORD_COMPLETIONS = [
+const KEYWORD_COMPLETIONS: vscode.CompletionItem[] = [
   // Rule keywords
   item("process",               K.Keyword, "Rule keyword", "Main entry point rule — fires once at program start.", "process\n\t$0"),
   item("process-start",         K.Keyword, "Rule keyword", "Initialization rule — fires before `process`.", "process-start\n\t$0"),
@@ -124,94 +114,73 @@ const KEYWORD_COMPLETIONS = [
 
 // ── Built-in streams ──────────────────────────────────────────────────────────
 
-const STREAM_COMPLETIONS = [
-  item("#process-input",    K.Variable, "Built-in stream", "Standard input (stdin).", "#process-input"),
-  item("#process-output",   K.Variable, "Built-in stream", "Standard output (stdout).", "#process-output"),
-  item("#main-input",       K.Variable, "Built-in stream", "Input file specified on the command line.", "#main-input"),
-  item("#main-output",      K.Variable, "Built-in stream", "Output file specified on the command line.", "#main-output"),
-  item("#error",            K.Variable, "Built-in stream", "Standard error (stderr).", "#error"),
-  item("#current-input",    K.Variable, "Built-in stream", "The current input stream.", "#current-input"),
-  item("#current-output",   K.Variable, "Built-in stream", "All currently active output destinations.", "#current-output"),
-  item("#markup-parser",    K.Variable, "Built-in stream", "The markup parser input stream.", "#markup-parser"),
-  item("#program-error",    K.Variable, "Built-in exception", "Runtime error exception.", "#program-error"),
-  item("#external-exception", K.Variable, "Built-in exception", "File/network error exception.", "#external-exception"),
-  item("#implied",          K.Variable, "Built-in group", "The default rule group — always active.", "#implied"),
-  item("#group",            K.Variable, "Built-in group", "All currently active rule groups.", "#group"),
-  item("#command-line-names", K.Variable, "Built-in shelf", "Command-line argument values.", "#command-line-names"),
-  item("#first",            K.Variable, "Built-in value", "The first item index of a shelf.", "#first"),
-  item("#last",             K.Variable, "Built-in value", "The last item index of a shelf.", "#last"),
-  item("#line-number",      K.Variable, "Built-in value", "Current line number in the input.", "#line-number"),
-  item("#file-name",        K.Variable, "Built-in value", "Current file name being processed.", "#file-name"),
-  item("#error-code",       K.Variable, "Built-in value", "Error code in a catch block.", "#error-code"),
-  item("#message",          K.Variable, "Built-in value", "Error message in a catch block.", "#message"),
+const STREAM_COMPLETIONS: vscode.CompletionItem[] = [
+  item("#process-input",      K.Variable, "Built-in stream",     "Standard input (stdin).", "#process-input"),
+  item("#process-output",     K.Variable, "Built-in stream",     "Standard output (stdout).", "#process-output"),
+  item("#main-input",         K.Variable, "Built-in stream",     "Input file specified on the command line.", "#main-input"),
+  item("#main-output",        K.Variable, "Built-in stream",     "Output file specified on the command line.", "#main-output"),
+  item("#error",              K.Variable, "Built-in stream",     "Standard error (stderr).", "#error"),
+  item("#current-input",      K.Variable, "Built-in stream",     "The current input stream.", "#current-input"),
+  item("#current-output",     K.Variable, "Built-in stream",     "All currently active output destinations.", "#current-output"),
+  item("#markup-parser",      K.Variable, "Built-in stream",     "The markup parser input stream.", "#markup-parser"),
+  item("#program-error",      K.Variable, "Built-in exception",  "Runtime error exception.", "#program-error"),
+  item("#external-exception", K.Variable, "Built-in exception",  "File/network error exception.", "#external-exception"),
+  item("#implied",            K.Variable, "Built-in group",      "The default rule group — always active.", "#implied"),
+  item("#group",              K.Variable, "Built-in group",      "All currently active rule groups.", "#group"),
+  item("#command-line-names", K.Variable, "Built-in shelf",      "Command-line argument values.", "#command-line-names"),
+  item("#first",              K.Variable, "Built-in value",      "The first item index of a shelf.", "#first"),
+  item("#last",               K.Variable, "Built-in value",      "The last item index of a shelf.", "#last"),
+  item("#line-number",        K.Variable, "Built-in value",      "Current line number in the input.", "#line-number"),
+  item("#file-name",          K.Variable, "Built-in value",      "Current file name being processed.", "#file-name"),
+  item("#error-code",         K.Variable, "Built-in value",      "Error code in a catch block.", "#error-code"),
+  item("#message",            K.Variable, "Built-in value",      "Error message in a catch block.", "#message"),
 ];
 
 // ── Snippets ──────────────────────────────────────────────────────────────────
 
-const SNIPPET_COMPLETIONS = [
-
-  item("do when…done", K.Snippet, "Snippet", "Conditional block.",
+const SNIPPET_COMPLETIONS: vscode.CompletionItem[] = [
+  item("do when…done",              K.Snippet, "Snippet", "Conditional block.",
     "do when ${1:condition}\n\t$0\ndone", true),
-
-  item("do when…else…done", K.Snippet, "Snippet", "Conditional block with else branch.",
+  item("do when…else…done",         K.Snippet, "Snippet", "Conditional block with else branch.",
     "do when ${1:condition}\n\t$2\nelse\n\t$3\ndone", true),
-
-  item("repeat…again", K.Snippet, "Snippet", "Basic loop.",
+  item("repeat…again",              K.Snippet, "Snippet", "Basic loop.",
     "repeat\n\t$0\n\texit when ${1:condition}\nagain", true),
-
-  item("repeat over…again", K.Snippet, "Snippet", "Iterate over a shelf.",
+  item("repeat over…again",         K.Snippet, "Snippet", "Iterate over a shelf.",
     "repeat over ${1:shelf}\n\toutput ${1} || \"%n\"\nagain", true),
-
-  item("do scan…match", K.Snippet, "Snippet", "Pattern-match a value.",
+  item("do scan…match",             K.Snippet, "Snippet", "Pattern-match a value.",
     "do scan ${1:variable}\n\tmatch ${2:\"pattern\"}\n\t\t$3\n\telse\n\t\t$4\ndone", true),
-
-  item("do select…case", K.Snippet, "Snippet", "Value-based conditional.",
+  item("do select…case",            K.Snippet, "Snippet", "Value-based conditional.",
     "do select ${1:expression}\n\tcase ${2:1} to ${3:5}\n\t\t$4\n\telse\n\t\t$5\ndone", true),
-
-  item("using output as…done", K.Snippet, "Snippet", "Redirect output to a stream.",
+  item("using output as…done",      K.Snippet, "Snippet", "Redirect output to a stream.",
     "using output as ${1:stream}\ndo\n\t$0\ndone", true),
-
-  item("using group…done", K.Snippet, "Snippet", "Activate a rule group.",
+  item("using group…done",          K.Snippet, "Snippet", "Activate a rule group.",
     "using group ${1:name}\ndo\n\t$0\ndone", true),
-
-  item("open…close", K.Snippet, "Snippet", "Open a buffer, write, close, output.",
+  item("open…close",                K.Snippet, "Snippet", "Open a buffer, write, close, output.",
     "open ${1:buf} as buffer\nput ${1} ${2:\"content\"}\nclose ${1}\noutput ${1}", true),
-
-  item("do xml-parse", K.Snippet, "Snippet", "Parse an XML document.",
+  item("do xml-parse",              K.Snippet, "Snippet", "Parse an XML document.",
     "do xml-parse document\n\tscan file ${1:#main-input}\n\toutput \"%c\"\ndone", true),
-
-  item("do sgml-parse", K.Snippet, "Snippet", "Parse an SGML document.",
+  item("do sgml-parse",             K.Snippet, "Snippet", "Parse an SGML document.",
     "do sgml-parse document\n\tscan file ${1:\"sgmldecl.sgm\"} || file ${2:\"my.dtd\"} || file ${3:#main-input}\n\toutput \"%c\"\ndone", true),
-
-  item("catch #program-error", K.Snippet, "Snippet", "Handle runtime errors.",
+  item("catch #program-error",      K.Snippet, "Snippet", "Handle runtime errors.",
     "catch #program-error code ${1:c} message ${2:m} location ${3:l}\n\toutput to #error \"Error \" || \"d\" format ${1} || \": \" || ${2} || \"%n\"", true),
-
   item("catch #external-exception", K.Snippet, "Snippet", "Handle file/network errors.",
     "catch #external-exception identity ${1:i} message ${2:m} location ${3:l}\n\toutput to #error \"External error: \" || ${2} || \"%n\"", true),
-
-  item("define function", K.Snippet, "Snippet", "Define a function with return value.",
+  item("define function",           K.Snippet, "Snippet", "Define a function with return value.",
     "define ${1:stream} function ${2:name}\n\t(value ${3:stream} ${4:arg})\nas\n\t$0\n\treturn ${5:result}", true),
-
-  item("define void function", K.Snippet, "Snippet", "Define a function with output only.",
+  item("define void function",      K.Snippet, "Snippet", "Define a function with output only.",
     "define function ${1:name}\n\t(value ${2:stream} ${3:arg})\nas\n\t$0", true),
-
-  item("global stream", K.Snippet, "Snippet", "Declare a global stream variable.",
+  item("global stream",             K.Snippet, "Snippet", "Declare a global stream variable.",
     "global stream ${1:name} initial {\"${2:value}\"}", true),
-
-  item("global counter", K.Snippet, "Snippet", "Declare a global counter variable.",
+  item("global counter",            K.Snippet, "Snippet", "Declare a global counter variable.",
     "global counter ${1:name} initial {${2:0}}", true),
-
-  item("global stream variable", K.Snippet, "Snippet", "Declare a global variable-size shelf.",
+  item("global stream variable",    K.Snippet, "Snippet", "Declare a global variable-size shelf.",
     "global stream ${1:name} variable", true),
-
-  item("element rule", K.Snippet, "Snippet", "XML/SGML element transformation rule.",
+  item("element rule",              K.Snippet, "Snippet", "XML/SGML element transformation rule.",
     "element ${1:name}\n\toutput \"<${1}>%c</${1}>\"", true),
-
-  item("element with attributes", K.Snippet, "Snippet", "Element rule passing through all attributes.",
+  item("element with attributes",   K.Snippet, "Snippet", "Element rule passing through all attributes.",
     "element ${1:name}\n\toutput \"<${1}\"\n\trepeat over attributes\n\t\toutput \" \" || name of attributes || \"='\" || attributes || \"'\"\n\tagain\n\toutput \">%c</${1}>\"", true),
-
-  item("full XML skeleton", K.Snippet, "Snippet", "Complete XML transformation program.",
+  item("full XML skeleton",         K.Snippet, "Snippet", "Complete XML transformation program.",
     "process\n\tdo xml-parse document\n\t\tscan file #main-input\n\t\toutput \"%c\"\n\tdone\n\nelement ${1:root}\n\toutput \"<${1}>%c</${1}>\"\n\nelement *\n\toutput \"%c\"\n\nmarkup-comment\n\tsuppress\n\nprocessing-instruction\n\tsuppress", true),
 ];
 
-module.exports = { KEYWORD_COMPLETIONS, STREAM_COMPLETIONS, SNIPPET_COMPLETIONS };
+export { KEYWORD_COMPLETIONS, STREAM_COMPLETIONS, SNIPPET_COMPLETIONS };

@@ -1,34 +1,33 @@
-# Node modules (if not bundled)
+# Source files (bundled into dist/)
+src/**
+
+# TypeScript config and build scripts
+tsconfig.json
+esbuild.js
+
+# Tests
+test/**
+
+# Node modules
 node_modules/**
 
-# Source maps and build artifacts
-*.map
-*.ts
-*.js
-*.jsx
-*.tsbuildinfo
+# Build artifacts (only dist/ is needed)
+out/**
 
-# Test files and folders
-test/**
-tests/**
-__tests__/**
-*.spec.*
-*.test.*
-
-# Documentation and markdown files
-README.md
-DEV.md
-Documentation.md
-
-# Configuration and local files
+# Dev/config files
 .vscode/**
-.vscodeignore
+.github/**
+.claude/**
+CLAUDE.md
+ROADMAP.md
 .gitignore
-*.log
+.vscodeignore
+.eslintrc*
+.prettierrc*
+*.map
+*.vsix
 
-# Other unnecessary files
-*.swp
-*.bak
-*.tmp
-*.DS_Store
-Thumbs.db
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

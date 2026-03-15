@@ -1,17 +1,32 @@
-# Extension package
-omnimark-language-*.vsix
+# Build output
+dist/
+out/
 
-# VS Code settings
-.vscode/
+# Node
+node_modules/
 
-# Logs
-*.log
+# Package artifacts
+*.vsix
 
-# Temporary files
-*.swp
-*.bak
-*.tmp
+# TypeScript incremental build cache
+*.tsbuildinfo
 
-# OS-specific files
+# Claude Code
+.claude/
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Editor
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+*.code-workspace
+
+# Test output
+.vscode-test/
+
+# Extra
+ROADMAP.md
+CLAUDE.md

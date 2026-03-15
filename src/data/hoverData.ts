@@ -1,14 +1,20 @@
 // OmniMark hover documentation — offline, based on OmniMark 11.0 docs
-// Each entry: { detail, description, syntax?, example? }
+// Each entry: { detail, description, syntax?, example?, url? }
 // "detail" = short one-liner shown in bold at top of hover
 // "description" = longer explanation
 // "syntax" = optional syntax template
 // "example" = optional code example
 // "url" = link to official docs page
 
-const BASE_URL = "https://developers.stilo.com/docs11.0.3/html/keyword/";
+export interface DocEntry {
+  detail: string;
+  description: string;
+  syntax?: string;
+  example?: string;
+  url?: string;
+}
 
-const DOCS = {
+const DOCS: Record<string, DocEntry> = {
 
   // ── RULE KEYWORDS ────────────────────────────────────────────────────────
 
@@ -627,4 +633,4 @@ const DOCS = {
   },
 };
 
-module.exports = { DOCS };
+export { DOCS };
