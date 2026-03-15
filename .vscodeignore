@@ -11,6 +11,9 @@ test/**
 # Node modules
 node_modules/**
 
+# Stale build output (project uses dist/)
+out/**
+
 # Dev/config files
 .vscode/**
 .github/**
