@@ -20,6 +20,7 @@
   ],
   "main": "./dist/extension.js",
   "scripts": {
+    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
   },
