@@ -4,6 +4,7 @@
   "description": "Syntax highlighting, snippets, and hover documentation for OmniMark (.xom, .xin, .xmd)",
   "version": "1.1.0",
   "publisher": "ppfjuni",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -13,7 +14,7 @@
   "keywords": ["omnimark", "xom", "xin", "xmd", "sgml", "xml", "stilo"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/vscode-omnimark"
+    "url": "https://github.com/ppedr/ominmark-vscode-extension"
   },
   "activationEvents": [
     "onLanguage:omnimark"
