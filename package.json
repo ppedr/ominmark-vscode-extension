@@ -51,6 +51,11 @@
         "language": "omnimark",
         "path": "./snippets/omnimark.json"
       }
-    ]
+    ],
+    "configurationDefaults": {
+      "[omnimark]": {
+        "files.encoding": "windows1252"
+      }
+    }
   }
 }
