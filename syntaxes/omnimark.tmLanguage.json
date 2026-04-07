@@ -115,7 +115,7 @@
       "patterns": [
         {
           "name": "entity.name.function.rule.omnimark",
-          "match": "(?i)\\b(process-start|process-end|process|find-start|find-end|find|data-content|document-start|document-end|dtd-start|dtd-end|markup-comment|markup-error|processing-instruction|prolog-end|prolog-in-error|epilog-start|sgml-declaration-end|external-text-entity|external-data-entity|invalid-data|marked-section|include-start|include-end|content-start|content-end|translate|element)\\b"
+          "match": "(?i)\\b(process-start|process-end|process|find-start|find-end|find|data-content|document-start|document-end|dtd-start|dtd-end|markup-comment|markup-error|processing-instruction|prolog-end|prolog-in-error|epilog-start|sgml-declaration-end|external-text-entity|external-data-entity|invalid-data|marked-section|include-start|include-end|content-start|content-end|translate|element)\\b(?!-)"
         }
       ]
     },
@@ -123,7 +123,7 @@
       "patterns": [
         {
           "name": "keyword.control.omnimark",
-          "match": "(?i)\\b(do|done|repeat|again|else|when|unless|exit|return|halt-everything|halt|throw|catch|always|case|match|select|scan|over|submit|suppress|output-to|output|put|open|close|reopen|set|increment|decrement|remove|clear|reset|copy-clear|copy|save-clear|save|log|flush|skip|discard|join|next|activate|deactivate|not-reached|succeed|assert|rethrow|system-call|test-system|using|define|declare|include|macro-end|macro|global|local|group)\\b"
+          "match": "(?i)\\b(do|done|repeat|again|else|when|unless|exit|return|halt-everything|halt|throw|catch|always|case|match|select|scan|over|submit|suppress|output-to|output|put|open|close|reopen|set|increment|decrement|remove|clear|reset|copy-clear|copy|save-clear|save|log|flush|skip|discard|join|next|activate|deactivate|not-reached|succeed|assert|rethrow|system-call|test-system|using|define|declare|include|macro-end|macro|global|local|group)\\b(?!-)"
         }
       ]
     },
@@ -131,7 +131,7 @@
       "patterns": [
         {
           "name": "storage.type.omnimark",
-          "match": "(?i)\\b(stream|counter|switch|integer|bcd|opaque|token|referent|referents|value|modifiable|read-only|readable|writable|variable|size|initial-size|initial|function|new|before|after|item|key|keyed|number|as|to|by|into|at|with|from|for|in|of|and|or|true|false|buffer|file|unbuffered|buffered|binary-mode|binary-input|binary-output|text-mode)\\b"
+          "match": "(?i)\\b(stream|counter|switch|integer|bcd|opaque|token|referent|referents|value|modifiable|read-only|readable|writable|variable|size|initial-size|initial|function|new|before|after|item|key|keyed|number|as|to|by|into|at|with|from|for|in|of|and|or|true|false|buffer|file|unbuffered|buffered|binary-mode|binary-input|binary-output|text-mode)\\b(?!-)"
         }
       ]
     },
@@ -139,7 +139,7 @@
       "patterns": [
         {
           "name": "support.class.character.omnimark",
-          "match": "(?i)\\b(any-text|any|white-space|word-start|word-end|line-start|line-end|non-cdata|non-sdata|letter|blank|space|digit|pcdata|rcdata|cdata|sdata|null|text|uc|lc)\\b"
+          "match": "(?i)\\b(any-text|any|white-space|word-start|word-end|line-start|line-end|non-cdata|non-sdata|letter|blank|space|digit|pcdata|rcdata|cdata|sdata|null|text|uc|lc)\\b(?!-)"
         }
       ]
     },
@@ -147,7 +147,7 @@
       "patterns": [
         {
           "name": "keyword.operator.word.omnimark",
-          "match": "(?i)\\b(is|isnt|has|hasnt|not|matches|lookahead|format|base|modulo|abs|ceiling|floor|round|truncate|sqrt|ln|log10|shift|complement|union|intersection|difference|mask|occurrence|length|number-of|name|date|exists|status|active|closed|specified|attached|unattached|created|ancestor|parent|children|subelement|elements|attributes|entities|notation|context-translate|cross-translate|up-translate|down-translate|except|unanchored|usemap|or)\\b"
+          "match": "(?i)\\b(is|isnt|has|hasnt|not|matches|lookahead|format|base|modulo|abs|ceiling|floor|round|truncate|sqrt|ln|log10|shift|complement|union|intersection|difference|mask|occurrence|length|number-of|name|date|exists|status|active|closed|specified|attached|unattached|created|ancestor|parent|children|subelement|elements|attributes|entities|notation|context-translate|cross-translate|up-translate|down-translate|except|unanchored|usemap|or)\\b(?!-)"
         }
       ]
     },
