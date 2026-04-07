@@ -2,7 +2,7 @@
   "name": "omnimark-language",
   "displayName": "OmniMark Language Support",
   "description": "Syntax highlighting, snippets, and hover documentation for OmniMark (.xom, .xin, .xmd)",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "ppfjuni",
   "icon": "icon.png",
   "engines": {
